@@ -1,0 +1,5 @@
+
+    num: "01",
+    title: "Your Student List — Role-Based Student Management Web App",
+    description: "A PHP and MySQL-based student management system featuring role-based access control. Regular users can manage attendance, while admin accounts (created directly via the database) have full access to CRUD and bulk actions. Includes live searching for efficient student data handling.",
+    href: "https://yourstudentlist.gt.tc/signIn.php"
