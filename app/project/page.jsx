@@ -71,12 +71,12 @@ const projects = [
 const Project = () => {
   const [project, setProject] = useState(projects[0]);
   const [swiperInstance, setSwiperInstance] = useState(null);
-  const searchParams = useSearchParams();
+  const searchParams = typeof window !== "undifined" ? useSearchParams() : null;
 
   // baca query slide
   useEffect(()=> {
     // skip kalo di server
-    if ( typeof window === "undefined") return; 
+    if ( typeof window === "undefined" || !searchParams) return; 
     const slideValue = searchParams.get("slide");
     if( !slideValue ) return;
     const slideIndex = Number(slideValue) - 1;
@@ -175,7 +175,7 @@ const Project = () => {
                     <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
                     {/* img */}
                     <div className="relative w-full h-full">
-                      <Image alt="" src={project.image} fill className="object-contain"/>
+                      <Image alt="" src={project.image} fill className="object-contain" unoptimized/>
                     </div>
                   </div>
                 </SwiperSlide>
