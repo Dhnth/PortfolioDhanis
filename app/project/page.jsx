@@ -72,7 +72,7 @@ const projects = [
 const Project = () => {
   const [project, setProject] = useState(projects[0]);
   const [swiperInstance, setSwiperInstance] = useState(null);
-  const searchParams = typeof window !== "undifined" ? useSearchParams() : null;
+  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
 
   // baca query slide
   useEffect(()=> {
