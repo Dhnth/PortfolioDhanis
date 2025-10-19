@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import Swal from "sweetalert2";
+
 
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -45,10 +47,22 @@ const Contact = () => {
     });
 
     if(res.ok) {
-      alert("Message sent successfully!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Message Sent',
+        text: 'Your message has been sent successfully!',
+        theme: 'dark',
+        confirmButtonColor: "#2BB3BC",
+      });
       e.target.reset();
     } else {
-      alert("Failed to send message. Please try again later.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Your message could not be sent, please try again later.",
+        theme: 'dark',
+        confirmButtonColor: "#2BB3BC",
+      });
     }
 
   }

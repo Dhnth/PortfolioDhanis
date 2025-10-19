@@ -40,7 +40,7 @@ const Services = () => {
           {services.map((service, index)=> {
             return <div 
             key={index}
-            className="flex flex-1 flex-col justify-center gap-6 group serGroup"
+            className="min-h-[400px] flex flex-1 flex-col justify-between gap-6 group serGroup"
             >
               <div className="w-full justify-between flex  items-center">
                 <div className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-outline text-transparent">
