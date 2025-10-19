@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
+import { Suspense } from "react";
 
 import { useSearchParams } from "next/navigation";
 
@@ -95,11 +96,12 @@ const Project = () => {
   }
 
   return (
-    <motion.section
-    initial={{opacity: 0}}
-    animate={{opacity: 1, transition: {delay: 2.2, duration: 0.3, ease: "easeIn"}}}
-    className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0"
-    >
+    <Suspense fallback={<div>Loading...</div>}>
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { delay: 2.2, duration: 0.3, ease: "easeIn" } }}
+        className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0"
+      >
       <div className="container mx-auto p-6">
         <div className="flex flex-col xl:flex-row xl:gap-[40px]">
           <div className="w-full xl:w-[50%] xl:h-[460px] order-2 flex flex-col xl:justify-between xl:order-none">
@@ -189,7 +191,8 @@ const Project = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+      </motion.section>
+    </Suspense>
   )
 }
 
