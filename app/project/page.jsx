@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, {use, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 
@@ -75,7 +75,12 @@ const Project = () => {
 
   // baca query slide
   useEffect(()=> {
-    const slideIndex = Number(searchParams.get("slide")) - 1;
+    // skip kalo di server
+    if ( typeof window === "undefined") return; 
+    const slideValue = searchParams.get("slide");
+    if( !slideValue ) return;
+    const slideIndex = Number(slideValue) - 1;
+
     if (swiperInstance && slideIndex >= 0 && slideIndex < projects.length) {
       swiperInstance.slideTo(slideIndex);
       setProject(projects[slideIndex]);
