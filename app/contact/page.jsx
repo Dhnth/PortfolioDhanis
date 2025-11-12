@@ -102,7 +102,7 @@ const Contact = () => {
                 Send Message
               </Button>
 
-            </form>
+            </form> 
           </div>
           {/* info */}
           <div className="flex-1 flex items-center order-1 xl:order-none xl:justify-end mb-8 xl:mb-0">
@@ -114,7 +114,7 @@ const Contact = () => {
                   </div>
                   <div className="flex-1">
                     <p className="text-white/60">{item.title}</p>
-                    <h3 className="text-lg md:text-xl">{item.description}</h3>
+                    <h3 className="text-md md:text-xl">{item.description}</h3>
                   </div>
                 </li>
               })}
