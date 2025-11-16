@@ -148,5 +148,20 @@
 .serGroup:hover .text-outline {
   -webkit-text-stroke: 1px #2FA9C2;
 }
+/* Chrome, Safari, Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* IE, Edge */
+* {
+  -ms-overflow-style: none;
+}
+
 
 }

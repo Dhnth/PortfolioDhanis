@@ -133,11 +133,11 @@ const Footer = () => {
                     opacity: 1, transition:{delay: 2, duration: 0.3, ease: "easeIn"}
                     }}
                     >
-                        <Image src="/giphy.gif" alt="gif" width={170} height={170} className="absolute right-0 top-0 -translate-y-30 h-auto z-10"/>
-                        <div className="mt-6 flex justify-end z-20">
+                        <Image src="/giphy.gif" alt="gif" width={170} height={170} className="absolute right-0 top-0 -translate-y-30 h-auto"/>
+                        <div className="mt-6 flex justify-end">
                             <Social 
                             containerSyles={"flex gap-6"}
-                            iconStyles={"w-9 h-9 border border-aksen rounded-full flex justify-center items-center text-aksen hover:bg-aksen hover:text-primary hover:transition-all duration-300"}
+                            iconStyles={"w-9 h-9 border border-aksen rounded-full flex justify-center items-center text-aksen hover:bg-aksen hover:text-primary hover:transition-all duration-300 z-20"}
                             />
                         </div>
                     </motion.div>
