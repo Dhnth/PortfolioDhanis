@@ -45,7 +45,7 @@ const Footer = () => {
                         <div className="mt-6 flex justify-end">
                             <Social 
                             containerSyles={"flex gap-6"}
-                            iconStyles={"w-9 h-9 border border-aksen rounded-full flex justify-center items-center text-aksen hover:bg-aksen hover:text-primary hover:transition-all duration-300"}
+                            iconStyles={"w-9 h-9 border border-aksen rounded-full flex justify-center items-center text-aksen hover:bg-aksen hover:text-primary hover:transition-all duration-300 z-20"}
                             />
                         </div>
                     </div>
@@ -87,8 +87,8 @@ const Footer = () => {
                     </div>
                     
                     <div className="border-t-4 relative">
-                        <img src="giphy.gif" alt="gif" className="w-[170px] absolute right-0 top-0 -translate-y-30 h-auto"/>
-                        <div className="mt-6 flex justify-end">
+                        <img src="giphy.gif" alt="gif" className="w-[170px] absolute right-0 top-0 -translate-y-30 h-auto z-10"/>
+                        <div className="mt-6 flex justify-end z-20">
                             <Social 
                             containerSyles={"flex gap-6"}
                             iconStyles={"w-9 h-9 border border-aksen rounded-full flex justify-center items-center text-aksen hover:bg-aksen hover:text-primary hover:transition-all duration-300"}
