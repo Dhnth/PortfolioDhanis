@@ -28,6 +28,7 @@ const projects = [
       {name: "CSS"},
       {name: "JavaScript"},
       {name: "MySQL"},
+      {name: "PHP"},
       {name: "PhpSpreadsheet"},
       {name: "jQuery"},
     ],

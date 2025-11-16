@@ -6,6 +6,7 @@ import { Weight } from "lucide-react";
 import Header from "@/components/Header";
 import PageTransition from "@/components/pageTransition";
 import StairTransition from "@/components/StairTransition";
+import Footer from "@/components/Footer";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         <PageTransition>
         {children}
         </PageTransition>
+        <Footer />
       </body>
     </html>
   );
