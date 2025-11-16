@@ -60,7 +60,7 @@ const Footer = () => {
                 </div>
                 <div className="mt-8">
                     <div className="flex items-center mb-6 justify-between">
-                        <div className="grid grid-cols-2 w-2/3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 w-2/3">
                             {[
                                 {name: "Home", href: "/"},
                                 {name: "Services", href: "/services"},
