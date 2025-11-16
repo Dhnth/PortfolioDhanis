@@ -1,6 +1,8 @@
+"use client";
 import { Button } from "@/components/ui/button"
 import { FiDownload, FiCode, FiServer, FiSmartphone } from "react-icons/fi"
 import Link from "next/link"
+import { motion } from "framer-motion";
 
 // components
 import Social from "@/components/Social"
@@ -48,12 +50,24 @@ const Home = () => {
 
 
         {/* Tech Stack Section */}
-        <div className="py-16 border-t border-white/10">
+        <motion.div 
+        className="py-16 border-t border-white/10"
+        initial={{opacity: 0}}
+        animate={{
+          opacity: 1, transition:{delay: 2, duration: 0.3, ease: "easeIn"}
+        }}
+        >
           <div className="text-center mb-12">
             <h2 className="h2 mb-4">Tech Stack</h2>
             <p className="text-white/60 max-w-2xl mx-auto">Technologies I frequently use to build modern websites</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          <motion.div 
+          className="flex flex-wrap justify-center gap-4 md:gap-6"
+          initial={{opacity: 0}}
+          animate={{
+            opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
+          }}
+          >
             {[
               'JavaScript',  
               'Node.js', 'Tailwind CSS', 'MySQL', 'PHP'
@@ -65,17 +79,29 @@ const Home = () => {
                 <span className="text-white font-medium">{tech}</span>
               </div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
 
         {/* Featured Projects Preview */}
-        <div className="py-16 border-t border-white/10">
+        <motion.div 
+        className="py-16 border-t border-white/10"
+        initial={{opacity: 0}}
+        animate={{
+          opacity: 1, transition:{delay: 2, duration: 0.3, ease: "easeIn"}
+        }}
+        >
           <div className="text-center mb-12">
             <h2 className="h2 mb-4">Featured Projects</h2>
             <p className="text-white/60 max-w-2xl mx-auto">Beberapa project terbaik yang telah saya kerjakan</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
+          <motion.div 
+          className="grid md:grid-cols-2 gap-8"
+          initial={{opacity: 0}}
+          animate={{
+            opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
+          }}
+          >
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-aksen/20 hover:border-aksen/50 transition-all duration-300">
               <h3 className="text-xl font-bold mb-3">Web Application</h3>
               <p className="text-white/60 mb-4">A desktop-oriented web application for managing student attendance, including login authentication, CRUD operations, and user-friendly data display on desktops.</p>
@@ -97,7 +123,7 @@ const Home = () => {
                 <span className="bg-aksen/20 text-aksen px-3 py-1 rounded-full text-sm">Framer Motion</span>
               </div>
             </div>
-          </div>
+          </motion.div>
           
           {/* CTA Button */}
           <div className="text-center mt-12">
@@ -111,10 +137,16 @@ const Home = () => {
             </Button>
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Contact CTA */}
-        <div className="py-16 border-t border-white/10 text-center">
+        <motion.div 
+        className="py-16 border-t border-white/10 text-center"
+        initial={{opacity: 0}}
+        animate={{
+          opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
+        }}
+        >
           <h2 className="h2 mb-4">Want to collaborate?</h2>
           <p className="text-white/60 max-w-2xl mx-auto mb-8">
             Let's discuss your project! I'm ready to help you turn your digital ideas into reality.
@@ -128,7 +160,7 @@ const Home = () => {
             Contact Me
           </Button>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
