@@ -6,7 +6,13 @@ import { motion } from "framer-motion";
 const Footer = () => {
   return (
     <footer className="py-12 border-t border-white/10">
-        <div className="container mx-auto">
+        <motion.div 
+        className="container mx-auto"
+        initial={{opacity: 0}}
+                    animate={{
+                    opacity: 1, transition:{delay: 2, duration: 0.3, ease: "easeIn"}
+                    }}
+        >
             {/* desktop foot */}
             <div className="hidden md:flex items-center justify-between">
                 <motion.div 
@@ -143,7 +149,7 @@ const Footer = () => {
                     </motion.div>
                 </motion.div>
             </div>
-        </div>
+        </motion.div>
     </footer>
   )
 }
