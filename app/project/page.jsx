@@ -98,10 +98,16 @@ const Project = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <motion.div>
+        <div className="mx-auto text-center mt-20">
+          <h1 className=" text-3xl md:text-5xl font-bold mb-8">My <span className="text-aksen">Projects</span></h1>
+          <p className="text-xl">Here are some of the projects I’ve worked on, showcasing my skills and what I enjoy building.</p>
+        </div>
+      </motion.div>
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 2.2, duration: 0.3, ease: "easeIn" } }}
-        className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0"
+        className="min-h-[70vh] flex flex-col justify-center py-12 xl:py-0"
       >
       <div className="container mx-auto p-6">
         <div className="flex flex-col xl:flex-row xl:gap-[40px]">
@@ -166,7 +172,7 @@ const Project = () => {
             <Swiper
             spaceBetween={30}
             slidesPerView={1}
-            className="h-[460px] xl:h-[520px] relative"
+            className="h-[400px] xl:h-[520px] relative"
             onSwiper={setSwiperInstance}
             onSlideChange={handleSlideChange}
             autoHeight={false}
@@ -175,10 +181,10 @@ const Project = () => {
                 return <SwiperSlide key={index} className="w-full">
                   <div className="h-full overflow-hidden relative group flex justify-center items-center">
                     {/* overlay */}
-                    <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
+                    {/* <div className="absolute top-0 bottom-0 w-full h-full z-10"></div> */}
                     {/* img */}
                     <div className="relative w-full h-full">
-                      <Image alt="" src={project.image} fill className="object-contain" unoptimized/>
+                      <Image alt="" src={project.image} fill className="object-contain brightness-75" unoptimized/>
                     </div>
                   </div>
                 </SwiperSlide>

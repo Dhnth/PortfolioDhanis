@@ -48,6 +48,7 @@ const Footer = () => {
                                 {name: "Contact", href: "/contact"},
                             ].map((item, index)=> {
                                 return (
+                                    
                                     <Link 
                                     key={index} 
                                     href={item.href}

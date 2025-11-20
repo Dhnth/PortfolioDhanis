@@ -190,9 +190,9 @@ const Services = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.5 }}
-          className="text-center mt-16"
+          className="text-center my-20"
         >
-          <p className="text-white/60 mb-6">Want to see these skills in action?</p>
+          <p className="text-white/60 mb-6 ">Want to see these skills in action?</p>
           <Link href="/project">
             <button className="bg-aksen text-white px-8 py-3 rounded-lg hover:bg-aksen/80 transition-colors duration-300 font-semibold">
               View All Projects
