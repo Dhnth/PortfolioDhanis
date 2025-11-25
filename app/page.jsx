@@ -139,28 +139,7 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Contact CTA */}
-        <motion.div 
-        className="py-16 border-t border-white/10 text-center"
-        initial={{opacity: 0}}
-        animate={{
-          opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
-        }}
-        >
-          <h2 className="h2 mb-4">Want to collaborate?</h2>
-          <p className="text-white/60 max-w-2xl mx-auto mb-8">
-            Let's discuss your project! I'm ready to help you turn your digital ideas into reality.
-          </p>
-          <Link href="/contact">
-          <Button 
-            variant={"outline"}
-            size={"lg"}
-            className="uppercase"
-          >
-            Contact Me
-          </Button>
-          </Link>
-        </motion.div>
+        
       </div>
     </section>
   )

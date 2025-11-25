@@ -15,6 +15,8 @@ import {
   SiNextdotjs,
   SiMysql
  } from "react-icons/si"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 // about data
 const about = {
@@ -132,7 +134,7 @@ const Resume = () => {
     animate={{opacity:1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}}}
     className="p-6 min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
     >
-      <div className="container mx-auto">
+      <div className="container mx-auto mt-32">
         <Tabs defaultValue="about" className="flex flex-col xl:flex-row gap-[60px]">
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6 h-[400px] bg-white/5 p-5 border-2 border-white/10">
             <TabsTrigger value="about">About Me</TabsTrigger>
@@ -177,6 +179,28 @@ const Resume = () => {
             </TabsContent>
           </div>
         </Tabs>
+      {/* Contact CTA */}
+        <motion.div 
+        className="py-16 border-t border-white/10 text-center"
+        initial={{opacity: 0}}
+        animate={{
+          opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
+        }}
+        >
+          <h2 className="h2 mb-4">Want to collaborate?</h2>
+          <p className="text-white/60 max-w-2xl mx-auto mb-8">
+            Let's discuss your project! I'm ready to help you turn your digital ideas into reality.
+          </p>
+          <Link href="/contact">
+          <Button 
+            variant={"outline"}
+            size={"lg"}
+            className="uppercase"
+          >
+            Contact Me
+          </Button>
+          </Link>
+        </motion.div>
       </div>
     </motion.div>
   )
