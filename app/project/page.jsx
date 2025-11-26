@@ -3,9 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/effect-fade";
 import { Suspense } from "react";
 
 import { useSearchParams } from "next/navigation";
@@ -297,9 +296,7 @@ const Project = () => {
                   onSwiper={setSwiperInstance}
                   onSlideChange={handleSlideChange}
                   autoHeight={false}
-                  modules={[Autoplay, EffectFade]}
-                  effect="fade"
-                  fadeEffect={{ crossFade: true }}
+                  modules={[Autoplay]}
                   speed={800}
                   autoplay={{
                     delay: 5000,
@@ -314,7 +311,7 @@ const Project = () => {
                         transition={{ duration: 0.3 }}
                       >
                         
-                        <div className="relative w-full h-full max-w-[100%] max-h-[90%] aspect-video rounded-xl overflow-hidden group/image-container">
+                        <div className="relative w-full h-full max-w-[100%] max-h-[80%] aspect-video rounded-xl overflow-hidden group/image-container">
                           <Image 
                             alt={project.title} 
                             src={project.image} 
@@ -326,7 +323,7 @@ const Project = () => {
                           />
                           
                           {/* Project title yang muncul dari bawah saat hover */}
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 transform translate-y-full group-hover/image-container:translate-y-0 transition-all duration-500">
+                          <div className="hidden xl:block absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 transform translate-y-full group-hover/image-container:translate-y-0 transition-all duration-500">
                             <h3 className="text-white font-semibold text-sm md:text-base text-center">
                               {project.title}
                             </h3>
