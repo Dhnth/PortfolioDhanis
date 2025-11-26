@@ -17,6 +17,7 @@ import {
  } from "react-icons/si"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 // about data
 const about = {
@@ -128,6 +129,18 @@ import { motion } from "framer-motion";
 
 
 const Resume = () => {
+  const [isClient, setIsClient] = useState(false);
+  const [floatingPositions, setFloatingPositions] = useState([]);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Generate random positions hanya di client side
+    const positions = skills.skillList.slice(0, 5).map(() => ({
+      top: Math.random() * 60,
+      left: Math.random() * 300,
+    }));
+    setFloatingPositions(positions);
+  }, []);
   return (
     <motion.div
     initial={{opacity:0}}
@@ -139,6 +152,65 @@ const Resume = () => {
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6 h-[400px] bg-white/5 p-5 border-2 border-white/10">
             <TabsTrigger value="about">About Me</TabsTrigger>
             <TabsTrigger value="skills">Skills</TabsTrigger>
+
+             {/* floating animation */}
+            <div className="mt-auto relative h-20">
+              {isClient && floatingPositions.length > 0 ? (
+                skills.skillList.slice(0, 5).map((skill, index) => {
+                  const position = floatingPositions[index];
+                  
+                  return (
+                    <motion.div
+                      className="absolute cursor-pointer"
+                      style={{
+                        top: `${position.top}px`,
+                        left: `${position.left}px`,
+                      }}  
+                      animate={{ 
+                        y: [0, -10, 0], 
+                        rotate: [0, 5, 0, -5, 0] 
+                      }}
+                      whileHover={{
+                        scale: 1.3,
+                        rotate: 360,
+                        transition: { duration: 0.3 }
+                      }}
+                      key={index}
+                      transition={{ 
+                        duration: 3, 
+                        repeat: Infinity, 
+                        ease: "easeInOut", 
+                        delay: index * 0.3
+                      }}
+                    >
+                      {skill.icon}
+                    </motion.div>
+                  );
+                })
+              ) : (
+                // Fallback selama loading atau di server
+                <div className="flex justify-center items-center h-full text-white/40">
+                  Loading...
+                </div>
+              )}
+            </div>
+
+
+            {/* quick action */}
+            <div className="mt-auto space-y-3 pt-6 border-t text-white border-white/10">
+              <Link href="/contact">
+                <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
+                  <FiMail size={16} />
+                  Contact
+                </Button>
+              </Link>
+              <Link href="/projects">
+                <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
+                  <FiTarget size={16} />
+                  Projects
+                </Button>
+              </Link>
+            </div>
           </TabsList>
           {/* content */}
           <div className="min-h-[70vh] w-full">
