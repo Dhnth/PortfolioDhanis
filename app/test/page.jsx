@@ -1,417 +1,322 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
 
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useEffect, useState} from "react";
-import {Swiper, SwiperSlide} from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
-import { Suspense } from "react";
+import Swal from "sweetalert2";
 
-import { useSearchParams } from "next/navigation";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
 
-import {BsArrowUpRight, BsGithub } from "react-icons/bs";
-
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
-
-import Link from "next/link";
-import Image from "next/image";
-
-import WorkSliderBtns from "@/components/WorkSliderBtns";
-
-const projects = [
+const info = [
   {
-    num: "01",
-    category: "Web Application | Backend",
-    title: "Student Attendance App",
-    description: "A desktop-oriented web application for managing student attendance, including login authentication, CRUD operations, and user-friendly data display on desktops.",
-    stack : [
-      {name: "HTML"},
-      {name: "CSS"},
-      {name: "JavaScript"},
-      {name: "MySQL"},
-      {name: "PHP"},
-      {name: "PhpSpreadsheet"},
-      {name: "jQuery"},
-    ],
-    image: "/assets/projectImage/1.webp",
-    live: "https://yourstudentlist.gt.tc",
-    github: "https://github.com/Dhnth/daftarMurid",
+    icon: <FaPhoneAlt />,
+    title: "Phone",
+    description: "(+62) 895 619 037 007",
+    link: "tel:+62895619037007"
   },
   {
-    num: "02",
-    category: "Frontend | Visual Design",
-    title: "Parallax Landing Page",
-    description: "A visually engaging landing page featuring smooth parallax scrolling and scroll-triggered animations, optimized exclusively for desktop viewing.",
-    stack : [
-      {name: "HTML"},
-      {name: "CSS"},
-      {name: "JavaScript"},
-      {name: "AOS"},
-    ],
-    image: "/assets/projectImage/2.webp",
-    live: "https://dhnth.github.io/tugasdhns/",
-    github: "https://github.com/Dhnth/tugasdhns",
+    icon: <FaEnvelope />,
+    title: "Email", 
+    description: "fathangunawan19@gmail.com",
+    link: "mailto:fathangunawan19@gmail.com"
   },
   {
-    num: "03",
-    category: "Frontend | Responsive",
-    title: "Responsive Landing Page",
-    description: "A landing page built from scratch that adapts to different screen sizes, including desktop and tablet. Includes interactive elements and scroll animations to enhance user engagement.",
-    stack : [
-      {name: "HTML"},
-      {name: "CSS"},
-      {name: "JavaScript"},
-      {name: "AOS"},
-    ],
-    image: "/assets/projectImage/3.webp",
-    live: "https://cookbookku.netlify.app",
-    github: "https://github.com/Dhnth/CookBookKu",
+    icon: <FaMapMarkerAlt />,
+    title: "Location",
+    description: "Banjar, Jawa Barat, Indonesia",
+    link: "https://maps.google.com/?q=Banjar,Jawa+Barat,Indonesia"
   },
-]
+];
 
-const Project = () => {
-  const [project, setProject] = useState(projects[0]);
-  const [swiperInstance, setSwiperInstance] = useState(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
+import { motion } from "framer-motion";
+import { useState } from "react";
 
-  // baca query slide
-  useEffect(()=> {
-    if ( typeof window === "undefined" || !searchParams) return; 
-    const slideValue = searchParams.get("slide");
-    if( !slideValue ) return;
-    const slideIndex = Number(slideValue) - 1;
+const Contact = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [isHovered, setIsHovered] = useState(null);
 
-    if (swiperInstance && slideIndex >= 0 && slideIndex < projects.length) {
-      swiperInstance.slideTo(slideIndex);
-      setProject(projects[slideIndex]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoading) return;
+    
+    setIsLoading(true);
+    const formData = {
+      firstname: e.target[0].value,
+      lastname: e.target[1].value,
+      email: e.target[2].value,
+      subject: e.target[3].value,
+      message: e.target[4].value,
+    };
+
+    const errors = {};
+    if (!formData.email.includes("@")) errors.email = "Invalid email address";
+    if (formData.message.length < 10) errors.message = "Message must be at least 10 characters long";
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      setIsLoading(false);
+      return;
     }
-  }, [swiperInstance, searchParams]);
 
-  const handleSlideChange = (swiper) => {
-    const currentIndex = swiper.realIndex;
-    setProject(projects[currentIndex]);
-  }
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formData),
+      });
 
-  // Variants untuk animasi yang lebih smooth
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: { 
-      opacity: 1, 
-      transition: { 
-        duration: 0.6,
-        when: "beforeChildren",
-        staggerChildren: 0.2
+      if(res.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Message Sent! 🎉',
+          text: 'I\'ll get back to you within 24 hours!',
+          theme: 'dark',
+          confirmButtonColor: "#2BB3BC",
+        });
+        e.target.reset();
+        setFormErrors({});
+      } else {
+        throw new Error("Failed to send message");
       }
-    },
-    exit: { 
-      opacity: 0,
-      transition: { duration: 0.3 }
-    }
-  };
-
-  const staggerVariants = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.5, ease: "easeOut" } 
-    }
-  };
-
-  const slideVariants = {
-    initial: { opacity: 0, x: 30 },
-    animate: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { duration: 0.6, ease: "easeOut" } 
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Your message could not be sent, please try again later.",
+        theme: 'dark',
+        confirmButtonColor: "#2BB3BC",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="project-page"
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="p-6 mb-10"
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.5, ease: "easeIn" } }}
+      className="min-h-screen flex items-center justify-center py-12"
+    >
+      <div className="container mx-auto px-6">
+        {/* Header Section */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
         >
-          {/* Header Section */}
-          <motion.div
-            variants={staggerVariants}
-            className="mx-auto text-center mt-20"
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Let's <span className="text-aksen bg-gradient-to-r from-aksen to-blue-400 bg-clip-text">Work Together</span>
+          </h1>
+          <p className="text-xl text-white/60 max-w-2xl mx-auto">
+            Ready to bring your ideas to life? Let's create something amazing together.
+          </p>
+        </motion.div>
+
+        <div className="flex flex-col xl:flex-row gap-12 items-start">
+          {/* Contact Info - Enhanced */}
+          <motion.div 
+            className="flex-1 w-full"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
           >
-            <motion.h1 
-              className="text-3xl md:text-5xl font-bold mb-8"
-              variants={itemVariants}
-            >
-              My <span className="text-aksen bg-gradient-to-r from-aksen to-aksen/70 bg-clip-text">Projects</span>
-            </motion.h1>
-            <motion.p 
-              className="text-xl text-white/80"
-              variants={itemVariants}
-            >
-              Here are some of the projects I've worked on, showcasing my skills and what I enjoy building.
-            </motion.p>
-          </motion.div>
-          
-          {/* Main Content */}
-          <motion.section
-            variants={slideVariants}
-            className="min-h-[70vh] flex flex-col justify-center py-12 xl:py-0"
-          >
-            <div className="container mx-auto p-6">
-              <div className="flex flex-col xl:flex-row xl:gap-[40px]">
-                {/* Left Column - Project Details */}
-                <div className="w-full xl:w-[50%] xl:h-[460px] order-2 flex flex-col xl:justify-between xl:order-none">
-                  <motion.div 
-                    className="flex flex-col gap-[30px]"
-                    variants={staggerVariants}
+            <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-white to-white/80 bg-clip-text">
+                Get In Touch
+              </h2>
+              
+              <div className="space-y-6">
+                {info.map((item, index) => (
+                  <motion.a
+                    key={index}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-6 p-4 rounded-xl bg-white/5 hover:bg-aksen/10 border border-white/10 hover:border-aksen/30 transition-all duration-300 group cursor-pointer"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onMouseEnter={() => setIsHovered(index)}
+                    onMouseLeave={() => setIsHovered(null)}
                   >
-                    {/* number project */}
-                    <AnimatePresence mode="wait">
-                      <motion.div 
-                        key={project.num}
-                        className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-none font-bold text-transparent text-outline hover:text-aksen/20 transition-all duration-500 cursor-default"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.2 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        {project.num}
-                      </motion.div>
-                    </AnimatePresence>
-                    
-                    {/* Category */}
-                    <AnimatePresence mode="wait">
-                      <motion.h2 
-                        key={project.category}
-                        className="text-[22px] md:text-[32px] lg:text-[42px] font-bold text-white group-hover:text-aksen transition-all duration-500 bg-gradient-to-r from-white to-white/80 bg-clip-text"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        {project.category}
-                      </motion.h2>
-                    </AnimatePresence>
-                    
-                    {/* Description */}
-                    <AnimatePresence mode="wait">
-                      <motion.p 
-                        key={project.description}
-                        className="text-white/70 text-sm md:text-lg leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                      >
-                        {project.description}
-                      </motion.p>
-                    </AnimatePresence>
-                    
-                    {/* Stack */}
-                    <AnimatePresence mode="wait">
-                      <motion.ul 
-                        key={project.num + "-stack"}
-                        className="flex flex-wrap gap-3"
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                        variants={{
-                          initial: { opacity: 0 },
-                          animate: {
-                            opacity: 1,
-                            transition: {
-                              staggerChildren: 0.08
-                            }
-                          },
-                          exit: { opacity: 0 }
-                        }}
-                      >
-                        {project.stack.map((item, index) => (
-                          <motion.li 
-                            key={index}
-                            className="text-sm md:text-lg lg:text-xl text-aksen bg-aksen/10 px-3 py-1 rounded-full border border-aksen/20 hover:bg-aksen/20 hover:border-aksen/40 transition-all duration-300 cursor-default"
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            variants={{
-                              initial: { opacity: 0, y: 10 },
-                              animate: { opacity: 1, y: 0 },
-                              exit: { opacity: 0, y: -10 }
-                            }}
-                          >
-                            {item.name}
-                          </motion.li>
-                        ))}
-                      </motion.ul>
-                    </AnimatePresence>
-                    
-                    {/* Animated Border */}
                     <motion.div 
-                      className="border border-white/20"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ delay: 0.3, duration: 0.5 }}
-                    />
-                    
-                    {/* Buttons */}
-                    <motion.div 
-                      className="flex items-center gap-4"
-                      variants={itemVariants}
+                      className="w-16 h-16 bg-gradient-to-br from-aksen to-blue-500 text-white rounded-xl flex items-center justify-center shadow-lg"
+                      whileHover={{ rotate: [0, -5, 5, 0] }}
+                      transition={{ duration: 0.5 }}
                     >
-                      {/* Your button code tetap sama */}
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Link href={project.live} target="_blank">
-                          <TooltipProvider delayDuration={100}>
-                            <Tooltip>
-                              <TooltipTrigger 
-                                className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[70px] lg:h-[70px] rounded-full bg-white/5 flex justify-center items-center group relative overflow-hidden"
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
-                              >
-                                <motion.div 
-                                  className="absolute inset-0 bg-gradient-to-r from-aksen to-aksen/70 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                                  initial={false}
-                                  animate={{ scale: isHovered ? 1 : 0 }}
-                                  transition={{ duration: 0.3 }}
-                                />
-                                <BsArrowUpRight className="text-white text-xl md:text-2xl lg:text-3xl group-hover:text-white relative z-10 transition-all duration-300" />
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Live Project</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </Link>
-                      </motion.div>
-                      
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Link href={project.github} target="_blank">
-                          <TooltipProvider delayDuration={100}>
-                            <Tooltip>
-                              <TooltipTrigger 
-                                className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[70px] lg:h-[70px] rounded-full bg-white/5 flex justify-center items-center group relative overflow-hidden"
-                              >
-                                <motion.div 
-                                  className="absolute inset-0 bg-gradient-to-r from-aksen to-aksen/70 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                                  whileHover={{ scale: 1 }}
-                                  initial={{ scale: 0 }}
-                                />
-                                <BsGithub className="text-white text-xl md:text-2xl lg:text-3xl group-hover:text-white relative z-10 transition-all duration-300" />
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Github Repository</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </Link>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                </div>
-                
-                {/* Right Column - Image Slider */}
-                <div className="w-full xl:w-[50%] xl:mb-0">
-                  <motion.div
-                    variants={slideVariants}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <Swiper
-                      spaceBetween={30}
-                      slidesPerView={1}
-                      className="h-[400px] xl:h-[520px] relative rounded-2xl overflow-hidden group"
-                      onSwiper={setSwiperInstance}
-                      onSlideChange={handleSlideChange}
-                      autoHeight={false}
-                      modules={[Autoplay]}
-                      speed={800}
-                      autoplay={{
-                        delay: 5000,
-                        disableOnInteraction: false,
-                      }}
-                      loop={true}
-                    >
-                      {/* Your swiper slides code tetap sama */}
-                      {projects.map((project, index) => (
-                        <SwiperSlide key={index} className="w-full">
-                          <motion.div 
-                            className="h-full w-full overflow-hidden relative flex justify-center items-center rounded-2xl"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <div className="relative w-full h-full max-w-[100%] max-h-[80%] aspect-video rounded-xl overflow-hidden group/image-container">
-                              <Image 
-                                alt={project.title} 
-                                src={project.image} 
-                                fill
-                                className="object-contain transition-all duration-500 brightness-85"
-                                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 40vw"
-                                quality={85}
-                                priority={index === 0}
-                              />
-                              
-                              <div className="hidden xl:block absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 transform translate-y-full group-hover/image-container:translate-y-0 transition-all duration-500">
-                                <h3 className="text-white font-semibold text-sm md:text-base text-center">
-                                  {project.title}
-                                </h3>
-                              </div>
-                            </div>
-                          </motion.div>
-                        </SwiperSlide>
-                      ))}
-                      
-                      <WorkSliderBtns 
-                        containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] z-20 w-full justify-between px-4"
-                        btnStyles="bg-black/40 hover:bg-aksen/80 text-white text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all duration-300 xl:text-[32px] xl:w-[54px] xl:h-[54px] rounded-full backdrop-blur-sm border border-white/20 hover:border-aksen/50 shadow-lg hover:shadow-aksen/20"
-                      />
-                      
-                      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
-                        {projects.map((_, index) => (
-                          <button
-                            key={index}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                              project.num === projects[index].num 
-                                ? 'bg-aksen w-6' 
-                                : 'bg-white/30 hover:bg-white/50'
-                            }`}
-                            onClick={() => {
-                              if (swiperInstance) {
-                                swiperInstance.slideTo(index);
-                              }
-                            }}
-                          />
-                        ))}
+                      <div className="text-2xl">
+                        {item.icon}
                       </div>
-                    </Swiper>
-                  </motion.div>
+                    </motion.div>
+                    <div className="flex-1">
+                      <p className="text-white/60 text-sm font-medium">{item.title}</p>
+                      <h3 className="text-lg font-semibold text-white group-hover:text-aksen transition-colors">
+                        {item.description}
+                      </h3>
+                    </div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ 
+                        opacity: isHovered === index ? 1 : 0,
+                        x: isHovered === index ? 0 : -10
+                      }}
+                      className="text-aksen"
+                    >
+                      →
+                    </motion.div>
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* Quick Stats */}
+              <motion.div 
+                className="mt-8 pt-8 border-t border-white/10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-aksen">24h</div>
+                    <div className="text-white/60 text-sm">Response Time</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-aksen">100%</div>
+                    <div className="text-white/60 text-sm">Project Success</div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Contact Form - Enhanced */}
+          <motion.div 
+            className="xl:w-[55%] w-full"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7 }}
+          >
+            <form 
+              className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-2xl"
+              onSubmit={handleSubmit}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-aksen to-blue-500 rounded-xl flex items-center justify-center">
+                  <FaPaperPlane className="text-white text-lg" />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text">
+                    Send Message
+                  </h3>
+                  <p className="text-white/60">I'll get back to you as soon as possible</p>
                 </div>
               </div>
-            </div>
-          </motion.section>
-        </motion.div>
-      </AnimatePresence>
-    </Suspense>
-  )
-}
 
-export default Project
+              {/* Input Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                <motion.div whileHover={{ scale: 1.02 }}>
+                  <Input 
+                    type="text" 
+                    name="firstname" 
+                    placeholder="First Name" 
+                    required
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                  />
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }}>
+                  <Input 
+                    type="text" 
+                    name="lastname" 
+                    placeholder="Last Name" 
+                    required
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                  />
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }}>
+                  <Input 
+                    type="text" 
+                    name="email" 
+                    placeholder="Email Address" 
+                    required
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                  />
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }}>
+                  <Input 
+                    type="text" 
+                    name="subject" 
+                    placeholder="Project Subject" 
+                    required
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Textarea */}
+              <motion.div whileHover={{ scale: 1.02 }} className="mb-6">
+                <Textarea 
+                  className="min-h-[150px] bg-white/5 border-white/10 focus:border-aksen resize-none transition-all duration-300"
+                  placeholder="Tell me about your project, timeline, and expectations..."
+                  required
+                />
+              </motion.div>
+
+              {/* Submit Button & Errors */}
+              <div className="flex items-center gap-10">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-aksen to-blue-500 hover:from-aksen/90 hover:to-blue-600 text-white font-semibold px-8 py-6 rounded-xl shadow-lg hover:shadow-aksen/20 transition-all duration-300 gap-3"
+                    disabled={isLoading}
+                    type="submit"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        <FaPaperPlane className="w-4 h-4" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </motion.div>
+
+                {/* Error Messages */}
+                <div className="flex flex-col gap-1">
+                  {formErrors.email && (
+                    <motion.p 
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="text-red-400 text-sm font-medium"
+                    >
+                      ⚠️ {formErrors.email}
+                    </motion.p>
+                  )}
+                  {formErrors.message && (
+                    <motion.p 
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="text-red-400 text-sm font-medium"
+                    >
+                      ⚠️ {formErrors.message}
+                    </motion.p>
+                  )}
+                </div>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+export default Contact;

@@ -138,7 +138,28 @@ const Home = () => {
             </Link>
           </div>
         </motion.div>
-
+        {/* Services CTA */}
+        <motion.div 
+          className="py-16 border-t border-white/10 text-center"
+          initial={{opacity: 0}}
+          animate={{
+            opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
+          }}
+        >
+          <h2 className="h2 mb-4">Ready to Build Something Amazing?</h2>
+          <p className="text-white/60 max-w-2xl mx-auto mb-8">
+            From web applications to stunning frontend designs - let's discuss how I can bring your digital vision to life with my development services.
+          </p>
+          <Link href="/services">
+            <Button 
+              variant={"outline"}
+              size={"lg"}
+              className="uppercase"
+            >
+              Explore My Services
+            </Button>
+          </Link>
+        </motion.div>
         
       </div>
     </section>

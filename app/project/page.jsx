@@ -10,7 +10,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import {BsArrowUpRight, BsGithub } from "react-icons/bs";
-
+import { Button } from "@/components/ui/button";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 import Link from "next/link";
@@ -147,7 +147,7 @@ const Project = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="p-6 mb-10"
+          className="p-6 mb-20"
         >
           {/* Header Section */}
           <motion.div
@@ -350,7 +350,6 @@ const Project = () => {
                       }}
                       loop={true}
                     >
-                      {/* Your swiper slides code tetap sama */}
                       {projects.map((project, index) => (
                         <SwiperSlide key={index} className="w-full">
                           <motion.div 
@@ -370,11 +369,6 @@ const Project = () => {
                                 priority={index === 0}
                               />
                               
-                              <div className="hidden xl:block absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 transform translate-y-full group-hover/image-container:translate-y-0 transition-all duration-500">
-                                <h3 className="text-white font-semibold text-sm md:text-base text-center">
-                                  {project.title}
-                                </h3>
-                              </div>
                             </div>
                           </motion.div>
                         </SwiperSlide>
