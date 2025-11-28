@@ -8,6 +8,7 @@ import PageTransition from "@/components/pageTransition";
 import StairTransition from "@/components/StairTransition";
 import Footer from "@/components/Footer";
 
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],

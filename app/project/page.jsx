@@ -75,7 +75,7 @@ const Project = () => {
   const [isHovered, setIsHovered] = useState(false);
   const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
 
-  // baca query slide
+  // Handle URL slide parameter
   useEffect(()=> {
     if ( typeof window === "undefined" || !searchParams) return; 
     const slideValue = searchParams.get("slide");
@@ -93,7 +93,7 @@ const Project = () => {
     setProject(projects[currentIndex]);
   }
 
-  // Variants untuk animasi yang lebih smooth
+  // Animation variants
   const pageVariants = {
     initial: { opacity: 0 },
     animate: { 
@@ -176,12 +176,12 @@ const Project = () => {
             <div className="container mx-auto p-6">
               <div className="flex flex-col xl:flex-row xl:gap-[40px]">
                 {/* Left Column - Project Details */}
-                <div className="w-full xl:w-[50%] xl:h-[460px] order-2 flex flex-col xl:justify-between xl:order-none">
+                <div className="w-full xl:w-[50%] xl:h-[460px] order-2 xl:order-1 flex flex-col xl:justify-between">
                   <motion.div 
                     className="flex flex-col gap-[30px]"
                     variants={staggerVariants}
                   >
-                    {/* number project */}
+                    {/* Project Number */}
                     <AnimatePresence mode="wait">
                       <motion.div 
                         key={project.num}
@@ -195,7 +195,7 @@ const Project = () => {
                       </motion.div>
                     </AnimatePresence>
                     
-                    {/* Category */}
+                    {/* Project Category */}
                     <AnimatePresence mode="wait">
                       <motion.h2 
                         key={project.category}
@@ -209,7 +209,7 @@ const Project = () => {
                       </motion.h2>
                     </AnimatePresence>
                     
-                    {/* Description */}
+                    {/* Project Description */}
                     <AnimatePresence mode="wait">
                       <motion.p 
                         key={project.description}
@@ -223,7 +223,7 @@ const Project = () => {
                       </motion.p>
                     </AnimatePresence>
                     
-                    {/* Stack */}
+                    {/* Tech Stack */}
                     <AnimatePresence mode="wait">
                       <motion.ul 
                         key={project.num + "-stack"}
@@ -259,7 +259,7 @@ const Project = () => {
                       </motion.ul>
                     </AnimatePresence>
                     
-                    {/* Animated Border */}
+                    {/* Separator Line */}
                     <motion.div 
                       className="border border-white/20"
                       initial={{ scaleX: 0 }}
@@ -267,12 +267,12 @@ const Project = () => {
                       transition={{ delay: 0.3, duration: 0.5 }}
                     />
                     
-                    {/* Buttons */}
+                    {/* Action Buttons */}
                     <motion.div 
                       className="flex items-center gap-4"
                       variants={itemVariants}
                     >
-                      {/* Your button code tetap sama */}
+                      {/* Live Project Button */}
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -281,7 +281,7 @@ const Project = () => {
                           <TooltipProvider delayDuration={100}>
                             <Tooltip>
                               <TooltipTrigger 
-                                className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[70px] lg:h-[70px] rounded-full bg-white/5 flex justify-center items-center group relative overflow-hidden"
+                                className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[70px] lg:h-[70px] rounded-full bg-white/5 flex justify-center items-center group relative overflow-hidden cursor-pointer"
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
                               >
@@ -301,6 +301,7 @@ const Project = () => {
                         </Link>
                       </motion.div>
                       
+                      {/* GitHub Button */}
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -309,7 +310,7 @@ const Project = () => {
                           <TooltipProvider delayDuration={100}>
                             <Tooltip>
                               <TooltipTrigger 
-                                className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[70px] lg:h-[70px] rounded-full bg-white/5 flex justify-center items-center group relative overflow-hidden"
+                                className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[70px] lg:h-[70px] rounded-full bg-white/5 flex justify-center items-center group relative overflow-hidden cursor-pointer"
                               >
                                 <motion.div 
                                   className="absolute inset-0 bg-gradient-to-r from-aksen to-aksen/70 opacity-0 group-hover:opacity-100 transition-all duration-300"
@@ -328,9 +329,9 @@ const Project = () => {
                     </motion.div>
                   </motion.div>
                 </div>
-                
+
                 {/* Right Column - Image Slider */}
-                <div className="w-full xl:w-[50%] xl:mb-0">
+                <div className="w-full xl:w-[50%] mb-8 xl:mb-0 order-1 xl:order-2">
                   <motion.div
                     variants={slideVariants}
                     transition={{ delay: 0.2 }}
@@ -338,7 +339,7 @@ const Project = () => {
                     <Swiper
                       spaceBetween={30}
                       slidesPerView={1}
-                      className="h-[400px] xl:h-[520px] relative rounded-2xl overflow-hidden group"
+                      className="h-[300px] sm:h-[350px] xl:h-[520px] relative rounded-2xl overflow-hidden group"
                       onSwiper={setSwiperInstance}
                       onSlideChange={handleSlideChange}
                       autoHeight={false}
@@ -353,12 +354,13 @@ const Project = () => {
                       {projects.map((project, index) => (
                         <SwiperSlide key={index} className="w-full">
                           <motion.div 
-                            className="h-full w-full overflow-hidden relative flex justify-center items-center rounded-2xl"
+                            className="h-full w-full overflow-hidden relative flex items-center justify-center p-4 rounded-2xl"
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5 }}
                           >
-                            <div className="relative w-full h-full max-w-[100%] max-h-[80%] aspect-video rounded-xl overflow-hidden group/image-container">
+                            {/* Project Image */}
+                            <div className="relative w-full h-auto max-w-[100%] aspect-video rounded-xl overflow-hidden group/image-container">
                               <Image 
                                 alt={project.title} 
                                 src={project.image} 
@@ -368,22 +370,23 @@ const Project = () => {
                                 quality={85}
                                 priority={index === 0}
                               />
-                              
                             </div>
                           </motion.div>
                         </SwiperSlide>
                       ))}
                       
+                      {/* Slider Navigation Buttons (Desktop only) */}
                       <WorkSliderBtns 
-                        containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] z-20 w-full justify-between px-4"
-                        btnStyles="bg-black/40 hover:bg-aksen/80 text-white text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all duration-300 xl:text-[32px] xl:w-[54px] xl:h-[54px] rounded-full backdrop-blur-sm border border-white/20 hover:border-aksen/50 shadow-lg hover:shadow-aksen/20"
+                        containerStyles="hidden xl:flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] z-20 w-full justify-between px-4"
+                        btnStyles="bg-black/40 hover:bg-aksen/80 text-white text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all duration-300 xl:text-[32px] xl:w-[54px] xl:h-[54px] rounded-full backdrop-blur-sm border border-white/20 hover:border-aksen/50 shadow-lg hover:shadow-aksen/20 cursor-pointer"
                       />
                       
+                      {/* Dots Indicator */}
                       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
                         {projects.map((_, index) => (
                           <button
                             key={index}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
                               project.num === projects[index].num 
                                 ? 'bg-aksen w-6' 
                                 : 'bg-white/30 hover:bg-white/50'

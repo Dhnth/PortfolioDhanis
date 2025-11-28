@@ -97,62 +97,62 @@ const Contact = () => {
     <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.5, ease: "easeIn" } }}
-      className="min-h-screen flex items-center justify-center py-12"
+      className="min-h-screen flex items-center justify-center py-8 lg:py-12"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Header Section */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Let's <span className="text-aksen bg-gradient-to-r from-aksen to-blue-400 bg-clip-text">Work Together</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 px-2">
+            Let's <span className="text-aksen">Work Together</span>
           </h1>
-          <p className="text-xl text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto px-4">
             Ready to bring your ideas to life? Let's create something amazing together.
           </p>
         </motion.div>
 
-        <div className="flex flex-col xl:flex-row gap-12 items-start">
-          {/* Contact Info - Enhanced */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+          {/* Contact Info - Fixed */}
           <motion.div 
-            className="flex-1 w-full"
+            className="w-full lg:flex-1"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-white to-white/80 bg-clip-text">
+            <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-white">
                 Get In Touch
               </h2>
               
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {info.map((item, index) => (
                   <motion.a
                     key={index}
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-6 p-4 rounded-xl bg-white/5 hover:bg-aksen/10 border border-white/10 hover:border-aksen/30 transition-all duration-300 group cursor-pointer"
+                    className="flex items-center gap-4 sm:gap-6 p-3 sm:p-4 rounded-xl bg-white/5 hover:bg-aksen/10 border border-white/10 hover:border-aksen/30 transition-all duration-300 group cursor-pointer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onMouseEnter={() => setIsHovered(index)}
                     onMouseLeave={() => setIsHovered(null)}
                   >
                     <motion.div 
-                      className="w-16 h-16 bg-gradient-to-br from-aksen to-blue-500 text-white rounded-xl flex items-center justify-center shadow-lg"
+                      className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-aksen to-blue-500 text-white rounded-xl items-center justify-center shadow-lg flex"
                       whileHover={{ rotate: [0, -5, 5, 0] }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="text-2xl">
+                      <div className="text-xl sm:text-2xl">
                         {item.icon}
                       </div>
                     </motion.div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <p className="text-white/60 text-sm font-medium">{item.title}</p>
-                      <h3 className="text-lg font-semibold text-white group-hover:text-aksen transition-colors">
+                      <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-aksen transition-colors break-words">
                         {item.description}
                       </h3>
                     </div>
@@ -162,7 +162,7 @@ const Contact = () => {
                         opacity: isHovered === index ? 1 : 0,
                         x: isHovered === index ? 0 : -10
                       }}
-                      className="text-aksen"
+                      className="text-aksen hidden sm:block"
                     >
                       →
                     </motion.div>
@@ -172,62 +172,61 @@ const Contact = () => {
 
               {/* Quick Stats */}
               <motion.div 
-                className="mt-8 pt-8 border-t border-white/10"
+                className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                {/*  - Work Ethic */}
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="flex flex-col items-center gap-2">
-                    <motion.div className="text-2xl font-bold text-blue-400" whileHover={{ rotate: [0, -5, 5, 0] }}>
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 text-center">
+                  <div className="flex flex-col items-center gap-1 sm:gap-2">
+                    <motion.div className="text-xl sm:text-2xl text-blue-400" whileHover={{ rotate: [0, -5, 5, 0] }}>
                       <FaCalendar />
                     </motion.div>
-                    <div className="text-white/60 text-sm">On Time</div>
+                    <div className="text-white/60 text-xs sm:text-sm">On Time</div>
                   </div>
-                  <div className="flex flex-col items-center gap-2">
-                    <motion.div className="text-2xl font-bold text-blue-400" whileHover={{ rotate: [0, -8, 8, 0], scale: 1.1 }}>
+                  <div className="flex flex-col items-center gap-1 sm:gap-2">
+                    <motion.div className="text-xl sm:text-2xl text-blue-400" whileHover={{ rotate: [0, -8, 8, 0], scale: 1.1 }}>
                       <FaComment />
                     </motion.div>
-                    <div className="text-white/60 text-sm">Open to Feedback</div>
+                    <div className="text-white/60 text-xs sm:text-sm">Open to Feedback</div>
                   </div>
                 </div>
               </motion.div>
             </div>
           </motion.div>
 
-          {/* Contact Form - Enhanced */}
+          {/* Contact Form - Fixed */}
           <motion.div 
-            className="xl:w-[55%] w-full"
+            className="w-full lg:w-[55%]"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.7 }}
           >
             <form 
-              className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-2xl"
+              className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl"
               onSubmit={handleSubmit}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-aksen to-blue-500 rounded-xl flex items-center justify-center">
-                  <FaPaperPlane className="text-white text-lg" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-aksen to-blue-500 rounded-xl flex items-center justify-center">
+                  <FaPaperPlane className="text-white text-base sm:text-lg" />
                 </div>
-                <div>
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text">
+                <div className="min-w-0">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white">
                     Send Message
                   </h3>
-                  <p className="text-white/60">I'll get back to you as soon as possible</p>
+                  <p className="text-white/60 text-sm sm:text-base">I'll get back to you as soon as possible</p>
                 </div>
               </div>
 
               {/* Input Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
                 <motion.div whileHover={{ scale: 1.02 }}>
                   <Input 
                     type="text" 
                     name="firstname" 
                     placeholder="First Name" 
                     required
-                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full text-sm sm:text-base text-white placeholder-white/60"
                   />
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.02 }}>
@@ -236,16 +235,16 @@ const Contact = () => {
                     name="lastname" 
                     placeholder="Last Name" 
                     required
-                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full text-sm sm:text-base text-white placeholder-white/60"
                   />
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.02 }}>
                   <Input 
-                    type="text" 
+                    type="email" 
                     name="email" 
                     placeholder="Email Address" 
                     required
-                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full text-sm sm:text-base text-white placeholder-white/60"
                   />
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.02 }}>
@@ -254,40 +253,41 @@ const Contact = () => {
                     name="subject" 
                     placeholder="Project Subject" 
                     required
-                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full"
+                    className="bg-white/5 border-white/10 focus:border-aksen transition-all duration-300 h-12 w-full text-sm sm:text-base text-white placeholder-white/60"
                   />
                 </motion.div>
               </div>
 
               {/* Textarea */}
-              <motion.div whileHover={{ scale: 1.02 }} className="mb-16">
+              <motion.div whileHover={{ scale: 1.02 }} className="mb-12 sm:mb-16">
                 <Textarea 
-                  className="min-h-[165px] bg-white/5 border-white/10 focus:border-aksen resize-none transition-all duration-300"
+                  className="min-h-[120px] sm:min-h-[165px] bg-white/5 border-white/10 focus:border-aksen resize-none transition-all duration-300 text-sm sm:text-base text-white placeholder-white/60"
                   placeholder="Tell me about your project, timeline, and expectations..."
                   required
                 />
               </motion.div>
 
               {/* Submit Button & Errors */}
-              <div className="flex items-center gap-10">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-10">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  className="w-full sm:w-auto"
                 >
                   <Button 
                     size="lg" 
-                    className="bg-gradient-to-r from-aksen to-blue-500 hover:from-aksen/90 hover:to-blue-600 text-white font-semibold px-8 py-6 rounded-xl shadow-lg hover:shadow-aksen/20 transition-all duration-300 gap-3"
+                    className="bg-gradient-to-r from-aksen to-blue-500 hover:from-aksen/90 hover:to-blue-600 text-white font-semibold px-6 sm:px-8 py-5 sm:py-6 rounded-xl shadow-lg hover:shadow-aksen/20 transition-all duration-300 gap-3 w-full sm:w-auto text-sm sm:text-base"
                     disabled={isLoading}
                     type="submit"
                   >
                     {isLoading ? (
                       <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
                         Sending Message...
                       </>
                     ) : (
                       <>
-                        <FaPaperPlane className="w-4 h-4" />
+                        <FaPaperPlane className="w-3 h-3 sm:w-4 sm:h-4" />
                         Send Message
                       </>
                     )}
@@ -295,12 +295,12 @@ const Contact = () => {
                 </motion.div>
 
                 {/* Error Messages */}
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 min-w-0 flex-1">
                   {formErrors.email && (
                     <motion.p 
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="text-red-400 text-sm font-medium"
+                      className="text-red-400 text-xs sm:text-sm font-medium break-words"
                     >
                       ⚠️ {formErrors.email}
                     </motion.p>
@@ -309,7 +309,7 @@ const Contact = () => {
                     <motion.p 
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="text-red-400 text-sm font-medium"
+                      className="text-red-400 text-xs sm:text-sm font-medium break-words"
                     >
                       ⚠️ {formErrors.message}
                     </motion.p>

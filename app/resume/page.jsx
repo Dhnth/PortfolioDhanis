@@ -147,7 +147,7 @@ const Resume = () => {
     animate={{opacity:1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}}}
     className="p-6 min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
     >
-      <div className="container mx-auto mt-32">
+      <div className="container mx-auto mt-12">
         <Tabs defaultValue="about" className="flex flex-col xl:flex-row gap-[60px]">
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6 h-[400px] bg-white/5 p-5 border-2 border-white/10">
             <TabsTrigger value="about">About Me</TabsTrigger>
