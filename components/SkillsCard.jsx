@@ -46,7 +46,7 @@ const SkillsCard = ({skill, index}) => {
           className="absolute inset-0 bg-aksen/20 backdrop-blur-sm rounded-xl border border-aksen/30 p-5 flex items-center justify-center rotate-y-180"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-          <p className="text-md text-white/80 text-center leading-relaxed">
+          <p className="text-sm md:text-md text-white/80 text-center leading-relaxed">
             {skill.description}
           </p>
         </div>
