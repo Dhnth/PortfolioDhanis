@@ -253,7 +253,7 @@ const Resume = () => {
         </Tabs>
       {/* Contact CTA */}
         <motion.div 
-        className="py-16 border-t border-white/10 text-center"
+        className="py-16 mt-10 border-t border-white/10 text-center"
         initial={{opacity: 0}}
         animate={{
           opacity: 1, transition:{delay: 2.2, duration: 0.3, ease: "easeIn"}
