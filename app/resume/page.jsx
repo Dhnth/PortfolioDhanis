@@ -137,7 +137,7 @@ const Resume = () => {
     // Generate random positions hanya di client side
     const positions = skills.skillList.slice(0, 5).map(() => ({
       top: Math.random() * 60,
-      left: Math.random() * 300,
+      left: Math.random() * 100,
     }));
     setFloatingPositions(positions);
   }, []);
